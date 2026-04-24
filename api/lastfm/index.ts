@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getRecentTracks } from "../../lib/lastfm";
+import { getRecentTracks } from "../../lib/lastfm.js";
 
 const lastFmRoutes = new Hono().get("/recent-tracks", async (c) => {
 	try {
