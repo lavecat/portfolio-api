@@ -1,7 +1,7 @@
 import { getMalToken, isMalTokenExpired, saveMalToken } from "../db/index.js";
 import type { MALAnimeList, MALTokenResponse } from "../types/mal";
 import { generatePKCEChallenge } from "./pkce.js";
-import { getEnv } from "../api/getenv.js";
+import { getEnv } from "../api/getenv";
 
 const { BASE_URL } = getEnv();
 const REDIRECT_URI = new URL("/api/mal/callback", BASE_URL).toString();
