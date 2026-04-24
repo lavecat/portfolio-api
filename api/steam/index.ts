@@ -4,13 +4,13 @@ import type {
 	PlayerSummaryResponse,
 	RecentGamesResponse,
 } from "../../types/steam";
+import { getEnv } from "../getenv.js";
 
 const steamRoutes = new Hono()
 
 	.get("/owned-games", async (c) => {
 		try {
-			const STEAM_API_KEY = process.env.STEAM_API_KEY;
-			const STEAM_ID = process.env.STEAM_ID;
+			const { STEAM_API_KEY, STEAM_ID } = getEnv();
 
 			if (!STEAM_API_KEY || !STEAM_ID) {
 				return c.json({ error: "Steam credentials not found" }, 500);
@@ -42,8 +42,7 @@ const steamRoutes = new Hono()
 
 	.get("/player-summary", async (c) => {
 		try {
-			const STEAM_API_KEY = process.env.STEAM_API_KEY;
-			const STEAM_ID = process.env.STEAM_ID;
+			const { STEAM_API_KEY, STEAM_ID } = getEnv();
 
 			if (!STEAM_API_KEY || !STEAM_ID) {
 				return c.json({ error: "Steam credentials not found" }, 500);
@@ -100,8 +99,7 @@ const steamRoutes = new Hono()
 
 	.get("/recently-played", async (c) => {
 		try {
-			const STEAM_API_KEY = process.env.STEAM_API_KEY;
-			const STEAM_ID = process.env.STEAM_ID;
+			const { STEAM_API_KEY, STEAM_ID } = getEnv();
 
 			if (!STEAM_API_KEY || !STEAM_ID) {
 				return c.json({ error: "Steam credentials not found" }, 500);

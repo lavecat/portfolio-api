@@ -1,8 +1,9 @@
 import { Hono } from "hono";
+import {getEnv} from "../getenv";
 
 const wakatimeRoutes = new Hono().get("/stats", async (c) => {
 	try {
-		const apiKey = process.env.WAKATIME_API_KEY;
+		const { apiKey } = getEnv();
 
 		if (!apiKey) {
 			return c.json({ error: "WakaTime API key not configured" }, 500);

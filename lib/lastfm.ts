@@ -1,14 +1,11 @@
 import type { LastFmRecentTracksResponse } from "../types/lastfm";
+import { getEnv } from "../api/getenv.js";
 
 const LASTFM_BASE_URL = "https://ws.audioscrobbler.com/2.0/";
 const LASTFM_METHOD = "user.getrecenttracks";
 
 export async function getRecentTracks(limit = 10) {
-	const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
-	const LASTFM_USERNAME = process.env.LASTFM_USERNAME;
-
-	console.log("LASTFM_API_KEY:", process.env.LASTFM_API_KEY);
-	console.log("LASTFM_USERNAME:", process.env.LASTFM_USERNAME);
+	const { LASTFM_API_KEY, LASTFM_USERNAME } = getEnv();
 
 	const params = new URLSearchParams({
 		method: LASTFM_METHOD,

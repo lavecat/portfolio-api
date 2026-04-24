@@ -1,12 +1,9 @@
 import { getMalToken, isMalTokenExpired, saveMalToken } from "../db/index.js";
 import type { MALAnimeList, MALTokenResponse } from "../types/mal";
 import { generatePKCEChallenge } from "./pkce.js";
+import { getEnv } from "../api/getenv.js";
 
-const CLIENT_ID = process.env.MAL_CLIENT_ID;
-const CLIENT_SECRET = process.env.MAL_CLIENT_SECRET;
-const BASE_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
-	? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-	: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const { BASE_URL } = getEnv();
 const REDIRECT_URI = new URL("/api/mal/callback", BASE_URL).toString();
 
 const tokenEndpoint = "https://myanimelist.net/v1/oauth2/token";
@@ -15,6 +12,7 @@ const animeListEndpoint = "https://api.myanimelist.net/v2/users/@me/animelist";
 
 export async function getAuthorizationUrl() {
 	const challenge = await generatePKCEChallenge();
+	const { CLIENT_ID } = getEnv();
 
 	const params = new URLSearchParams({
 		response_type: "code",
@@ -34,6 +32,7 @@ export async function getAccessToken(
 	code: string,
 	codeVerifier: string,
 ): Promise<MALTokenResponse> {
+	const { CLIENT_ID, CLIENT_SECRET } = getEnv();
 	const params = new URLSearchParams({
 		client_id: CLIENT_ID ?? "",
 		client_secret: CLIENT_SECRET ?? "",
@@ -64,6 +63,7 @@ export async function getAccessToken(
 export async function refreshAccessToken(
 	refreshToken: string,
 ): Promise<MALTokenResponse> {
+	const { CLIENT_ID, CLIENT_SECRET } = getEnv();
 	const params = new URLSearchParams({
 		client_id: CLIENT_ID ?? "",
 		client_secret: CLIENT_SECRET ?? "",
