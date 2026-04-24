@@ -4,7 +4,7 @@ import type {
 	PlayerSummaryResponse,
 	RecentGamesResponse,
 } from "../../types/steam";
-import { getEnv } from "../getenv";
+import { getEnv } from "../../lib/getenv";
 
 const steamRoutes = new Hono()
 

@@ -1,5 +1,5 @@
 import type { LastFmRecentTracksResponse } from "../types/lastfm";
-import { getEnv } from "../api/getenv";
+import { getEnv } from "./getenv";
 
 const LASTFM_BASE_URL = "https://ws.audioscrobbler.com/2.0/";
 const LASTFM_METHOD = "user.getrecenttracks";
