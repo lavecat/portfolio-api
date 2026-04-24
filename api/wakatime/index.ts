@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getEnv } from "../../lib/getenv";
+import { getEnv } from "../../lib/getenv.js";
 
 const wakatimeRoutes = new Hono().get("/stats", async (c) => {
 	try {
